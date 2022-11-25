@@ -31,6 +31,9 @@
 #define RGB_DI_PIN GP0  // Per-key.
 // #define RGB_DI_PIN GP10 // Underglow.
 
+/* VBUS detection. */
+#define USB_VBUS_PIN GP19
+
 /* CRC. */
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED

@@ -34,6 +34,9 @@
 /* RGB settings. */
 #define RGB_DI_PIN GP0
 
+/* VBUS detection. */
+#define USB_VBUS_PIN GP25
+
 /* Reset. */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
