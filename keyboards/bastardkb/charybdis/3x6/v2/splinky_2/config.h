@@ -37,6 +37,9 @@
 /* RGB settings. */
 #define RGB_DI_PIN GP0
 
+/* VBUS detection. */
+#define USB_VBUS_PIN GP25
+
 /* SPI & PMW3360 settings. */
 #define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP18
@@ -47,4 +50,3 @@
 /* Reset. */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
