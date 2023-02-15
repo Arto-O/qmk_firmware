@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 enum sweet16_keymap_artoo_layers {
-  LAYER_BASE_RIGHT = 0,
+  LAYER_BASE = 0,
   LAYER_PAR,
   LAYER_NUM,
   LAYER_SYM,
@@ -84,7 +84,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{3, 3}, {2, 3}, {1, 3}, {0, 3}},
 };
 
-#define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
+#define LAYOUT_wrapper(...) LAYOUT_ortho_4x4(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE]  = LAYOUT_wrapper(LAYOUT_LAYER_BASE),
