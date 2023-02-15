@@ -36,7 +36,7 @@ enum sweet16_keymap_artoo_layers {
 
 #define LAYOUT_LAYER_BASE             \
 KC_MUTE,HYPR(KC_F),HYPR(KC_U),QK_BOOT,\
-  SH_TG,G(KC_D),TO(LAYER_BASE),SH_TG, \
+ SH_OFF,G(KC_D),TO(LAYER_BASE),SH_ON, \
     A_PAR,    KC_R,    KC_T,   S_NUM, \
     E_SYM,    KC_Y,    KC_I,   O_CUS
 
