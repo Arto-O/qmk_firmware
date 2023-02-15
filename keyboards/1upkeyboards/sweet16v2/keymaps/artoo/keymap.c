@@ -114,6 +114,8 @@ const uint16_t PROGMEM artsey_combo_V[] = {KC_R, KC_S, COMBO_END};
 const uint16_t PROGMEM artsey_combo_W[] = {KC_A, KC_S, COMBO_END};
 const uint16_t PROGMEM artsey_combo_X[] = {KC_R, KC_T, KC_S, COMBO_END};
 const uint16_t PROGMEM artsey_combo_Z[] = {KC_A, KC_R, KC_T, KC_S, COMBO_END};
+const uint16_t PROGMEM artsey_combo_AUML[] = {KC_E, KC_R, KC_T, KC_O, COMBO_END};
+const uint16_t PROGMEM artsey_combo_OUML[] = {KC_A, KC_Y, KC_I, KC_S, COMBO_END};
 
 const uint16_t PROGMEM artsey_combo_QUOT[] = {KC_A, KC_Y, KC_I, COMBO_END};
 const uint16_t PROGMEM artsey_combo_DOT[] = {KC_A, KC_Y, COMBO_END};
@@ -164,6 +166,8 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(artsey_combo_W, KC_W),
   COMBO(artsey_combo_X, KC_X),
   COMBO(artsey_combo_Z, KC_Z),
+  COMBO(artsey_combo_AUML, ALGR(KC_Q)),
+  COMBO(artsey_combo_OUML, ALGR(KC_P)),
   COMBO(artsey_combo_QUOT, KC_QUOT),
   COMBO(artsey_combo_DOT, KC_DOT),
   COMBO(artsey_combo_COMM, KC_COMM),
