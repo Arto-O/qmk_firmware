@@ -62,7 +62,7 @@ KC_MUTE,HYPR(KC_F),HYPR(KC_U),QK_BOOT,\
   _____________TRNS_ROW_____________, \
   _____________TRNS_ROW_____________, \
   KC_MUTE,  KC_INS, KC_VOLU,   KC_NO, \
-  KC_RSFT, KC_PSCR, KC_VOLD,   KC_NO
+OSM(MOD_RALT), KC_PSCR, KC_VOLD,   KC_NO
 
 #define LAYOUT_LAYER_MOUSE            \
   _____________TRNS_ROW_____________, \
