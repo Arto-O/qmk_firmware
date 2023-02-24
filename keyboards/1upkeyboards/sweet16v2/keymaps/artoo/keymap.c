@@ -55,14 +55,14 @@ KC_MUTE,HYPR(KC_F),HYPR(KC_U),QK_BOOT,\
 #define LAYOUT_LAYER_SYM              \
   _____________TRNS_ROW_____________, \
   _____________TRNS_ROW_____________, \
-  KC_EXLM, KC_SLSH, KC_SCLN,  KC_GRV, \
+  KC_EXLM, KC_BSLS, KC_SCLN,  KC_GRV, \
     KC_NO, KC_QUES, KC_MINS,  KC_EQL
 
 #define LAYOUT_LAYER_CUS              \
   _____________TRNS_ROW_____________, \
   _____________TRNS_ROW_____________, \
   KC_MUTE,  KC_INS, KC_VOLU,   KC_NO, \
-OSM(MOD_RALT), KC_PSCR, KC_VOLD,   KC_NO
+OSM(MOD_RALT),KC_PSCR,KC_VOLD, KC_NO
 
 #define LAYOUT_LAYER_MOUSE            \
   _____________TRNS_ROW_____________, \
@@ -96,55 +96,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_NAV]   = LAYOUT_wrapper(LAYOUT_LAYER_NAV),
 };
 
-const uint16_t PROGMEM artsey_combo_B[] = {KC_E, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_C[] = {KC_E, KC_Y, COMBO_END};
-const uint16_t PROGMEM artsey_combo_D[] = {KC_A, KC_R, KC_T, COMBO_END};
-const uint16_t PROGMEM artsey_combo_F[] = {KC_A, KC_R, COMBO_END};
+const uint16_t PROGMEM artsey_combo_B[] = {E_SYM, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_C[] = {E_SYM, KC_Y, COMBO_END};
+const uint16_t PROGMEM artsey_combo_D[] = {A_PAR, KC_R, KC_T, COMBO_END};
+const uint16_t PROGMEM artsey_combo_F[] = {A_PAR, KC_R, COMBO_END};
 const uint16_t PROGMEM artsey_combo_G[] = {KC_R, KC_T, COMBO_END};
-const uint16_t PROGMEM artsey_combo_H[] = {KC_E, KC_I, COMBO_END};
-const uint16_t PROGMEM artsey_combo_J[] = {KC_T, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_K[] = {KC_Y, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_L[] = {KC_E, KC_Y, KC_I, COMBO_END};
-const uint16_t PROGMEM artsey_combo_M[] = {KC_Y, KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_N[] = {KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_P[] = {KC_E, KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_Q[] = {KC_A, KC_T, KC_S, COMBO_END};
+const uint16_t PROGMEM artsey_combo_H[] = {E_SYM, KC_I, COMBO_END};
+const uint16_t PROGMEM artsey_combo_J[] = {KC_T, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_K[] = {KC_Y, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_L[] = {E_SYM, KC_Y, KC_I, COMBO_END};
+const uint16_t PROGMEM artsey_combo_M[] = {KC_Y, KC_I, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_N[] = {KC_I, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_P[] = {E_SYM, KC_I, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_Q[] = {A_PAR, KC_T, S_NUM, COMBO_END};
 const uint16_t PROGMEM artsey_combo_U[] = {KC_Y, KC_I, COMBO_END};
-const uint16_t PROGMEM artsey_combo_V[] = {KC_R, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_W[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_X[] = {KC_R, KC_T, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_Z[] = {KC_A, KC_R, KC_T, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_AUML[] = {KC_E, KC_R, KC_T, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_OUML[] = {KC_A, KC_Y, KC_I, KC_S, COMBO_END};
+const uint16_t PROGMEM artsey_combo_V[] = {KC_R, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_W[] = {A_PAR, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_X[] = {KC_R, KC_T, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_Z[] = {A_PAR, KC_R, KC_T, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_AUML[] = {E_SYM, KC_R, KC_T, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_OUML[] = {A_PAR, KC_Y, KC_I, S_NUM, COMBO_END};
 
-const uint16_t PROGMEM artsey_combo_QUOT[] = {KC_A, KC_Y, KC_I, COMBO_END};
-const uint16_t PROGMEM artsey_combo_DOT[] = {KC_A, KC_Y, COMBO_END};
-const uint16_t PROGMEM artsey_combo_COMM[] = {KC_A, KC_I, COMBO_END};
-const uint16_t PROGMEM artsey_combo_SLSH[] = {KC_A, KC_O, COMBO_END};
+const uint16_t PROGMEM artsey_combo_QUOT[] = {A_PAR, KC_Y, KC_I, COMBO_END};
+const uint16_t PROGMEM artsey_combo_DOT[] = {A_PAR, KC_Y, COMBO_END};
+const uint16_t PROGMEM artsey_combo_COMM[] = {A_PAR, KC_I, COMBO_END};
+const uint16_t PROGMEM artsey_combo_SLSH[] = {A_PAR, O_CUS, COMBO_END};
 const uint16_t PROGMEM artsey_combo_EXLM[] = {KC_T, KC_I, COMBO_END};
 
-const uint16_t PROGMEM artsey_combo_ENT[] = {KC_A, KC_E, COMBO_END};
-const uint16_t PROGMEM artsey_combo_SPC[] = {KC_E, KC_Y, KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_BSPC[] = {KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM artsey_combo_ENT[] = {A_PAR, E_SYM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_SPC[] = {E_SYM, KC_Y, KC_I, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_BSPC[] = {E_SYM, KC_R, COMBO_END};
 const uint16_t PROGMEM artsey_combo_DEL[] = {KC_R, KC_I, COMBO_END};
-const uint16_t PROGMEM artsey_combo_ESC[] = {KC_A, KC_R, KC_O, COMBO_END};
-const uint16_t PROGMEM artsey_combo_TAB[] = {KC_A, KC_R, KC_T, KC_Y, COMBO_END};
+const uint16_t PROGMEM artsey_combo_ESC[] = {A_PAR, KC_R, O_CUS, COMBO_END};
+const uint16_t PROGMEM artsey_combo_TAB[] = {A_PAR, KC_R, KC_T, O_CUS, COMBO_END};
 
-const uint16_t PROGMEM artsey_combo_LCTL[] = {KC_E, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_LGUI[] = {KC_Y, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_LALT[] = {KC_I, KC_S, COMBO_END};
-const uint16_t PROGMEM artsey_combo_LSFT[] = {KC_E, KC_R, KC_T, KC_S, COMBO_END};
+const uint16_t PROGMEM artsey_combo_LCTL[] = {E_SYM, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_LGUI[] = {KC_Y, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_LALT[] = {KC_I, S_NUM, COMBO_END};
+const uint16_t PROGMEM artsey_combo_LSFT[] = {E_SYM, KC_R, KC_T, S_NUM, COMBO_END};
 const uint16_t PROGMEM artsey_combo_CAPS_WORD[] = {KC_R, KC_Y, COMBO_END};
-const uint16_t PROGMEM artsey_combo_CAPS[] = {KC_A, KC_Y, KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM artsey_combo_CAPS[] = {A_PAR, KC_Y, KC_I, O_CUS, COMBO_END};
 
 const uint16_t PROGMEM artsey_combo_7[] = {KC_1, KC_2, COMBO_END};
 const uint16_t PROGMEM artsey_combo_8[] = {KC_2, KC_3, COMBO_END};
 const uint16_t PROGMEM artsey_combo_9[] = {KC_4, KC_5, COMBO_END};
 const uint16_t PROGMEM artsey_combo_0[] = {KC_5, KC_6, COMBO_END};
 
-const uint16_t PROGMEM artsey_combo_MOUSE_ON[] = {KC_A, KC_Y, KC_T, COMBO_END};
+const uint16_t PROGMEM artsey_combo_MOUSE_ON[] = {A_PAR, KC_Y, KC_T, COMBO_END};
 const uint16_t PROGMEM artsey_combo_MOUSE_OFF[] = {KC_BTN1, KC_MS_D, KC_BTN2, COMBO_END};
-const uint16_t PROGMEM artsey_combo_NAV_ON[] = {KC_E, KC_R, KC_I, COMBO_END};
+const uint16_t PROGMEM artsey_combo_NAV_ON[] = {E_SYM, KC_R, KC_I, COMBO_END};
 const uint16_t PROGMEM artsey_combo_NAV_OFF[] = {KC_LEFT, KC_UP, KC_RGHT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
