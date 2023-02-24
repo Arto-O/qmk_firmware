@@ -16,6 +16,15 @@
 
 #include QMK_KEYBOARD_H
 
+// variables for ALT_TAB
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
+enum custom_keycodes {
+  ALT_TAB = SAFE_RANGE,
+  SFT_ALT_TAB,
+};
+
 enum sweet16_keymap_artoo_layers {
   LAYER_BASE = 0,
   LAYER_PAR,
@@ -24,6 +33,7 @@ enum sweet16_keymap_artoo_layers {
   LAYER_CUS,
   LAYER_MOUSE,
   LAYER_NAV,
+  LAYER_UTIL,
 };
 
 #define A_PAR LT(LAYER_PAR, KC_A)
@@ -33,49 +43,57 @@ enum sweet16_keymap_artoo_layers {
 
 // convenience shorthands
 #define _____________TRNS_ROW_____________ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+#define ___________TO_BASE_ROW____________ KC_TRNS, KC_TRNS, TO(LAYER_BASE), KC_TRNS
 
 #define LAYOUT_LAYER_BASE             \
 KC_MUTE,HYPR(KC_F),HYPR(KC_U),QK_BOOT,\
- SH_OFF,G(KC_D),TO(LAYER_BASE),SH_ON, \
+ SH_OFF,G(KC_D),TG(LAYER_UTIL),SH_ON, \
     A_PAR,    KC_R,    KC_T,   S_NUM, \
     E_SYM,    KC_Y,    KC_I,   O_CUS
 
 #define LAYOUT_LAYER_PAR              \
   _____________TRNS_ROW_____________, \
-  _____________TRNS_ROW_____________, \
+  ___________TO_BASE_ROW____________, \
     KC_NO, KC_LPRN, KC_RPRN, KC_RCBR, \
     KC_NO, KC_LBRC, KC_RBRC, KC_LCBR
 
 #define LAYOUT_LAYER_NUM              \
   _____________TRNS_ROW_____________, \
-  _____________TRNS_ROW_____________, \
+  ___________TO_BASE_ROW____________, \
      KC_1,    KC_2,    KC_3,   KC_NO, \
      KC_4,    KC_5,    KC_6,   KC_NO
 
 #define LAYOUT_LAYER_SYM              \
   _____________TRNS_ROW_____________, \
-  _____________TRNS_ROW_____________, \
+  ___________TO_BASE_ROW____________, \
   KC_EXLM, KC_BSLS, KC_SCLN,  KC_GRV, \
     KC_NO, KC_QUES, KC_MINS,  KC_EQL
 
 #define LAYOUT_LAYER_CUS              \
   _____________TRNS_ROW_____________, \
-  _____________TRNS_ROW_____________, \
+  ___________TO_BASE_ROW____________, \
   KC_MUTE,  KC_INS, KC_VOLU,   KC_NO, \
 OSM(MOD_RALT),KC_PSCR,KC_VOLD, KC_NO
 
 #define LAYOUT_LAYER_MOUSE            \
   _____________TRNS_ROW_____________, \
-  _____________TRNS_ROW_____________, \
+  ___________TO_BASE_ROW____________, \
   KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, \
   KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D
 
 #define LAYOUT_LAYER_NAV              \
   _____________TRNS_ROW_____________, \
-  _____________TRNS_ROW_____________, \
+  ___________TO_BASE_ROW____________, \
   KC_HOME,   KC_UP,  KC_END, KC_PGUP, \
   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 
+#define LAYOUT_LAYER_UTIL             \
+  _____________TRNS_ROW_____________, \
+  ___________TO_BASE_ROW____________, \
+  _____________TRNS_ROW_____________, \
+  _____________TRNS_ROW_____________
+
+#if defined(SWAP_HANDS_ENABLE)
 // Only mirror the two bottom rows
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{0, 0}, {1, 0}, {2, 0}, {3, 0}},
@@ -83,6 +101,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{3, 2}, {2, 2}, {1, 2}, {0, 2}},
   {{3, 3}, {2, 3}, {1, 3}, {0, 3}},
 };
+#endif
 
 #define LAYOUT_wrapper(...) LAYOUT_ortho_4x4(__VA_ARGS__)
 
@@ -94,6 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_CUS]   = LAYOUT_wrapper(LAYOUT_LAYER_CUS),
   [LAYER_MOUSE] = LAYOUT_wrapper(LAYOUT_LAYER_MOUSE),
   [LAYER_NAV]   = LAYOUT_wrapper(LAYOUT_LAYER_NAV),
+  [LAYER_UTIL]  = LAYOUT_wrapper(LAYOUT_LAYER_UTIL),
 };
 
 const uint16_t PROGMEM artsey_combo_B[] = {E_SYM, O_CUS, COMBO_END};
@@ -196,12 +216,60 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 
 #if defined(ENCODER_MAP_ENABLE)
+#if defined(SWAP_HANDS_ENABLE)
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 0, 1 };
+#endif // defined(SWAP_HANDS_ENABLE)
+
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),      ENCODER_CCW_CW(RGB_VAD, RGB_VAI)  },
-    [1] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
-    [2] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
-    [3] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
-    [4] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  },
-    [5] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),      ENCODER_CCW_CW(KC_TRNS, KC_TRNS)  }
+    [LAYER_BASE]  =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(SFT_ALT_TAB, ALT_TAB) },
+    [LAYER_PAR]   =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [LAYER_NUM]   =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [LAYER_SYM]   =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [LAYER_CUS]   =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS),  ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [LAYER_MOUSE] =  { ENCODER_CCW_CW(KC_MS_L, KC_MS_R),  ENCODER_CCW_CW(KC_MS_D, KC_MS_U) },
+    [LAYER_NAV]   =  { ENCODER_CCW_CW(KC_WH_L, KC_WH_R),  ENCODER_CCW_CW(KC_WH_D, KC_WH_U) },
+    [LAYER_UTIL]  =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),  ENCODER_CCW_CW(KC_WH_D, KC_WH_U) }
 };
-#endif
+#endif // defined(ENCODER_MAP_ENABLE)
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+    case SFT_ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        register_code(KC_LSFT);
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+        unregister_code(KC_LSFT);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {
+  // ALT_TAB timer
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+}
