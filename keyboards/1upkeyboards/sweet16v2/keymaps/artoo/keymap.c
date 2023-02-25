@@ -271,6 +271,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 
+  if (is_swap_hands_active) {
+    switch (keycode) {
+      case KC_LEFT:
+        if (record->event.pressed) {
+          register_code(KC_RGHT);
+        } else {
+          unregister_code(KC_RGHT);
+        }
+        return false;
+      case KC_RGHT:
+        if (record->event.pressed) {
+          register_code(KC_LEFT);
+        } else {
+          unregister_code(KC_LEFT);
+        }
+        return false;
+      case KC_HOME:
+        if (record->event.pressed) {
+          register_code(KC_END);
+        } else {
+          unregister_code(KC_END);
+        }
+        return false;
+      case KC_END:
+        if (record->event.pressed) {
+          register_code(KC_HOME);
+        } else {
+          unregister_code(KC_HOME);
+        }
+        return false;
+      case KC_MS_L:
+        if (record->event.pressed) {
+          register_code(KC_MS_R);
+        } else {
+          unregister_code(KC_MS_R);
+        }
+        return false;
+      case KC_MS_R:
+        if (record->event.pressed) {
+          register_code(KC_MS_L);
+        } else {
+          unregister_code(KC_MS_L);
+        }
+        return false;
+    }
+  }
+
   return true;
 }
 
