@@ -20,6 +20,9 @@
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
+// swap hands flag for controlling rgb
+bool is_swap_hands_active = false;
+
 enum custom_keycodes {
   ALT_TAB = SAFE_RANGE,
   SFT_ALT_TAB,
@@ -46,7 +49,7 @@ enum sweet16_keymap_artoo_layers {
 #define ___________TO_BASE_ROW____________ KC_TRNS, KC_TRNS, TO(LAYER_BASE), KC_TRNS
 
 #define LAYOUT_LAYER_BASE             \
-KC_MUTE,HYPR(KC_F),HYPR(KC_U),QK_BOOT,\
+KC_MUTE,HYPR(KC_F),HYPR(KC_U),EE_CLR, \
  SH_OFF,G(KC_D),TG(LAYER_UTIL),SH_ON, \
     A_PAR,    KC_R,    KC_T,   S_NUM, \
     E_SYM,    KC_Y,    KC_I,   O_CUS
@@ -88,7 +91,7 @@ OSM(MOD_RALT),KC_PSCR,KC_VOLD, KC_NO
   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 
 #define LAYOUT_LAYER_UTIL             \
-  _____________TRNS_ROW_____________, \
+  KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT, \
   ___________TO_BASE_ROW____________, \
   _____________TRNS_ROW_____________, \
   _____________TRNS_ROW_____________
@@ -260,7 +263,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LSFT);
       }
       break;
+    case SH_OFF:
+      is_swap_hands_active = false;
+      break;
+    case SH_ON:
+      is_swap_hands_active = true;
+      break;
   }
+
   return true;
 }
 
@@ -272,4 +282,45 @@ void matrix_scan_user(void) {
       is_alt_tab_active = false;
     }
   }
+}
+
+void set_artsey_color(uint8_t r, uint8_t g, uint8_t b) {
+  for (uint8_t i = 10; i < 20; i++) {
+    if (i == 14 || i == 18) {
+      continue;
+    }
+
+    rgb_matrix_set_color(i, r, g, b);
+  }
+}
+
+bool rgb_matrix_indicators_user() {
+  if (is_swap_hands_active) {
+    rgb_matrix_set_color(5, RGB_GREEN);
+    rgb_matrix_set_color(9, RGB_RED);
+  } else {
+    rgb_matrix_set_color(5, RGB_RED);
+    rgb_matrix_set_color(9, RGB_GREEN);
+  }
+
+  if (host_keyboard_led_state().caps_lock) {
+    set_artsey_color(RGB_RED);
+  }
+
+  switch (get_highest_layer(layer_state|default_layer_state)) {
+    case LAYER_MOUSE:
+      set_artsey_color(RGB_WHITE);
+      break;
+    case LAYER_NAV:
+      set_artsey_color(RGB_PURPLE);
+      break;
+    case LAYER_UTIL:
+      for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+          rgb_matrix_set_color(i, RGB_RED);
+        }
+      }
+  }
+
+  return false;
 }
