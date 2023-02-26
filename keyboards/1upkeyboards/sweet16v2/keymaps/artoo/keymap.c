@@ -331,40 +331,46 @@ void matrix_scan_user(void) {
   }
 }
 
-void set_artsey_color(uint8_t r, uint8_t g, uint8_t b) {
+void u_set_key_color(uint8_t key, uint8_t h, uint8_t s, uint8_t v) {
+    HSV hsv = {h, s, RGB_MATRIX_DEFAULT_VAL};
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(key, rgb.r, rgb.g, rgb.b);
+}
+
+void set_artsey_color(uint8_t h, uint8_t s, uint8_t v) {
   for (uint8_t i = 10; i < 20; i++) {
-    if (i == 14 || i == 18) {
+    if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
       continue;
     }
 
-    rgb_matrix_set_color(i, r, g, b);
+    u_set_key_color(i, h, s, v);
   }
 }
 
 bool rgb_matrix_indicators_user() {
   if (is_swap_hands_active) {
-    rgb_matrix_set_color(5, RGB_GREEN);
-    rgb_matrix_set_color(9, RGB_RED);
+    u_set_key_color(5, HSV_GREEN);
+    u_set_key_color(9, HSV_RED);
   } else {
-    rgb_matrix_set_color(5, RGB_RED);
-    rgb_matrix_set_color(9, RGB_GREEN);
+    u_set_key_color(5, HSV_RED);
+    u_set_key_color(9, HSV_GREEN);
   }
 
   if (host_keyboard_led_state().caps_lock) {
-    set_artsey_color(RGB_RED);
+    set_artsey_color(HSV_RED);
   }
 
   switch (get_highest_layer(layer_state|default_layer_state)) {
     case LAYER_MOUSE:
-      set_artsey_color(RGB_WHITE);
+      set_artsey_color(HSV_WHITE);
       break;
     case LAYER_NAV:
-      set_artsey_color(RGB_PURPLE);
+      set_artsey_color(HSV_PURPLE);
       break;
     case LAYER_UTIL:
       for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         if (g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
-          rgb_matrix_set_color(i, RGB_RED);
+          u_set_key_color(i, HSV_RED);
         }
       }
   }
