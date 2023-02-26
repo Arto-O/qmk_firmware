@@ -167,8 +167,10 @@ const uint16_t PROGMEM artsey_combo_0[] = {KC_5, KC_6, COMBO_END};
 
 const uint16_t PROGMEM artsey_combo_MOUSE_ON[] = {A_PAR, KC_Y, KC_T, COMBO_END};
 const uint16_t PROGMEM artsey_combo_MOUSE_OFF[] = {KC_BTN1, KC_MS_D, KC_BTN2, COMBO_END};
+const uint16_t PROGMEM artsey_combo_NAV_TO_MOUSE[] = {KC_HOME, KC_DOWN, KC_END, COMBO_END};
 const uint16_t PROGMEM artsey_combo_NAV_ON[] = {E_SYM, KC_R, KC_I, COMBO_END};
 const uint16_t PROGMEM artsey_combo_NAV_OFF[] = {KC_LEFT, KC_UP, KC_RGHT, COMBO_END};
+const uint16_t PROGMEM artsey_combo_MOUSE_TO_NAV[] = {KC_MS_L, KC_MS_U, KC_MS_R, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(artsey_combo_B, KC_B),
@@ -214,8 +216,10 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(artsey_combo_0, KC_0),
   COMBO(artsey_combo_MOUSE_ON, TG(LAYER_MOUSE)),
   COMBO(artsey_combo_MOUSE_OFF, TG(LAYER_MOUSE)),
+  COMBO(artsey_combo_NAV_TO_MOUSE, TO(LAYER_MOUSE)),
   COMBO(artsey_combo_NAV_ON, TG(LAYER_NAV)),
   COMBO(artsey_combo_NAV_OFF, TG(LAYER_NAV)),
+  COMBO(artsey_combo_MOUSE_TO_NAV, TO(LAYER_NAV)),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
