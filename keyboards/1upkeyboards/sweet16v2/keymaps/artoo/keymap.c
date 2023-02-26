@@ -50,7 +50,7 @@ enum sweet16_keymap_artoo_layers {
 #define ___________TO_BASE_ROW____________ KC_TRNS, KC_TRNS, TO(LAYER_BASE), KC_TRNS
 
 #define LAYOUT_LAYER_BASE             \
-KC_MUTE,HYPR(KC_F),HYPR(KC_U),EE_CLR, \
+KC_MUTE,HYPR(KC_F),HYPR(KC_U),KC_MPLY,\
  SH_OFF,LCK_SLP,TG(LAYER_UTIL),SH_ON, \
     A_PAR,    KC_R,    KC_T,   S_NUM, \
     E_SYM,    KC_Y,    KC_I,   O_CUS
@@ -92,7 +92,7 @@ OSM(MOD_RALT),KC_PSCR,KC_VOLD, KC_NO
   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 
 #define LAYOUT_LAYER_UTIL             \
-  KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT, \
+   EE_CLR, KC_TRNS, KC_TRNS, QK_BOOT, \
   ___________TO_BASE_ROW____________, \
   _____________TRNS_ROW_____________, \
   _____________TRNS_ROW_____________
