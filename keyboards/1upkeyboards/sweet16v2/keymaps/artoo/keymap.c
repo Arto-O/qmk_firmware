@@ -76,8 +76,8 @@ KC_MUTE,HYPR(KC_F),HYPR(KC_U),KC_MPLY,\
 #define LAYOUT_LAYER_CUS              \
   _____________TRNS_ROW_____________, \
   ___________TO_BASE_ROW____________, \
-  KC_MUTE,  KC_INS, KC_VOLU,   KC_NO, \
-OSM(MOD_RALT),KC_PSCR,KC_VOLD, KC_NO
+  KC_WREF,  KC_INS, KC_WFWD,   KC_NO, \
+OSM(MOD_RALT),KC_PSCR,KC_WBAK, KC_NO
 
 #define LAYOUT_LAYER_MOUSE            \
   _____________TRNS_ROW_____________, \
