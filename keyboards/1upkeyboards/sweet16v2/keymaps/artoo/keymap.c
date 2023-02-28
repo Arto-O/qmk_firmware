@@ -209,7 +209,7 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(artsey_combo_LGUI, OSM(MOD_LGUI)),
   COMBO(artsey_combo_LALT, OSM(MOD_LALT)),
   COMBO(artsey_combo_LSFT, OSM(MOD_LSFT)),
-  COMBO(artsey_combo_CAPS_WORD, CAPS_WORD),
+  COMBO(artsey_combo_CAPS_WORD, CW_TOGG),
   COMBO(artsey_combo_CAPS, KC_CAPS),
   COMBO(artsey_combo_7, KC_7),
   COMBO(artsey_combo_8, KC_8),
