@@ -73,7 +73,7 @@ enum {
     CP_LCSL,
 };
 
-void caps_locksleep(qk_tap_dance_state_t *state, void *user_data) {
+void caps_locksleep(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             tap_code(KC_CAPS);
@@ -84,7 +84,7 @@ void caps_locksleep(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [CP_LCSL] = ACTION_TAP_DANCE_FN(caps_locksleep),
 };
 
@@ -132,7 +132,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 // Navigation.
 #define LAYOUT_LAYER_NAV                                                                      \
     KC_PGUP, KC_HOME,   KC_UP,  KC_END,  KC_INS, __________________RESET_R__________________, \
-    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,CAPS_WORD,______________HOME_ROW_GACS_R______________, \
+    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, CW_TOGG, ______________HOME_ROW_GACS_R______________, \
        U_NU,  U_OUML,  U_AUML,    U_NU,    U_NU, ______________HOME_ROW_ALGR_R______________, \
                        KC_APP,  KC_SPC,  KC_TAB,    U_NA,    U_NA
 
