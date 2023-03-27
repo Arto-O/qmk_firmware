@@ -33,15 +33,9 @@
 // left one, uncomment the following line.
 //#define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
-<<<<<<< HEAD
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN GP1
-
 /* VBUS detection. */
 #define USB_VBUS_PIN GP19
 
-=======
->>>>>>> 53727062db036596eaec9e7fff6d1d9e112c2206
 /* CRC. */
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
