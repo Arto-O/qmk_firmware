@@ -26,7 +26,6 @@ bool is_swap_hands_active = false;
 enum custom_keycodes {
   ALT_TAB = SAFE_RANGE,
   SFT_ALT_TAB,
-  LCK_SLP,
 };
 
 enum sweet16_keymap_artoo_layers {
@@ -51,7 +50,7 @@ enum sweet16_keymap_artoo_layers {
 
 #define LAYOUT_LAYER_BASE             \
 KC_MUTE,HYPR(KC_F),HYPR(KC_U),KC_MPLY,\
- SH_OFF,LCK_SLP,TG(LAYER_UTIL),SH_ON, \
+  SH_OFF,KC_PWR,TG(LAYER_UTIL),SH_ON, \
     A_PAR,    KC_R,    KC_T,   S_NUM, \
     E_SYM,    KC_Y,    KC_I,   O_CUS
 
@@ -266,11 +265,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(KC_TAB);
         unregister_code(KC_LSFT);
-      }
-      break;
-    case LCK_SLP:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI("l") SS_TAP(X_SLEP));
       }
       break;
     case SH_OFF:
