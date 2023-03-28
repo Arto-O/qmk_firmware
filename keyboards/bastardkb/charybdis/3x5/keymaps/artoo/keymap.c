@@ -70,22 +70,11 @@ enum charybdis_keymap_artoo_layers {
 
 // Tap Dance
 enum {
-    CP_LCSL,
+    CPS_PWR,
 };
 
-void caps_locksleep(tap_dance_state_t *state, void *user_data) {
-    switch (state->count) {
-        case 1:
-            tap_code(KC_CAPS);
-            break;
-        case 2:
-            SEND_STRING(SS_LGUI("l") SS_TAP(X_SLEP));
-            break;
-    }
-}
-
 tap_dance_action_t tap_dance_actions[] = {
-    [CP_LCSL] = ACTION_TAP_DANCE_FN(caps_locksleep),
+    [CPS_PWR] = ACTION_TAP_DANCE_DOUBLE(KC_CAPS, KC_PWR),
 };
 
 // Key Overrides
@@ -125,7 +114,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 // Media.
 #define LAYOUT_LAYER_MEDIA                                                                    \
   G(KC_F12), KC_WBAK, KC_VOLU, KC_WFWD,G(KC_F10),__________________RESET_R__________________, \
-  G(KC_F11), KC_MPRV, KC_VOLD,KC_MNXT,TD(CP_LCSL),______________HOME_ROW_GACS_R______________,\
+  G(KC_F11), KC_MPRV, KC_VOLD,KC_MNXT,TD(CPS_PWR),______________HOME_ROW_GACS_R______________,\
     KC_CALC, KC_MAIL, KC_WSCH, KC_MYCM, KC_WREF, ______________HOME_ROW_ALGR_R______________, \
                        KC_MUTE, KC_MPLY, KC_MSTP,    U_NA,    U_NA
 
