@@ -48,36 +48,64 @@ led_config_t g_led_config = { {
     {     35, NO_LED,     33,     34, NO_LED }, // Thumb cluster
 }, {
     /* LED index to physical position. */
-    // Left split.
-    /* index=0  */ {   0,  42 }, {   0,  21 }, {   0,   0 }, // col 1 (left most)
-    /* index=3  */ {  18,   0 }, {  18,  21 }, {  18,  42 }, // col 2
-    /* index=6  */ {  36,  42 }, {  36,  21 }, {  36,   0 },
-    /* index=9  */ {  54,   0 }, {  54,  21 }, {  54,  42 },
-    /* index=12 */ {  72,   0 }, {  72,  21 }, {  72,  42 },
-    /* index=15 */ {  72,  64 }, {  90,  64 }, { 108,  64 }, // Thumb cluster
-    // Right split.
-    /* index=18 */ { 224,  42 }, { 224,  21 }, { 224,   0 }, // col 10 (right most)
-    /* index=21 */ { 206,   0 }, { 206,  21 }, { 206,  42 }, // col 9
-    /* index=24 */ { 188,  42 }, { 188,  21 }, { 188,   0 },
-    /* index=27 */ { 170,   0 }, { 170,  21 }, { 170,  42 },
-    /* index=30 */ { 152,   0 }, { 152,  21 }, { 152,  42 },
-    /* index=33 */ { 152,  64 }, { 134,  64 }, { 116,  64 }, // Thumb cluster
+    // Left split underglow.
+    /* index=0  */ {   0,   0 }, {   0,   0 }, {   0,   0 }, // col 1 (left most)
+    /* index=3  */ {   0,   0 }, {   0,   0 }, {   0,   0 }, // col 2
+    /* index=6  */ {   0,   0 }, {   0,   0 }, {   0,   0 },
+    /* index=9  */ {   0,   0 }, {   0,   0 }, {   0,   0 },
+    /* index=12 */ {   0,   0 }, {   0,   0 }, {   0,   0 },
+    /* index=15 */ {   0,   0 }, {   0,   0 }, {   0,   0 }, // Thumb cluster
+    // Left split per-key.
+    /* index=18 */ {   0,  42 }, {   0,  21 }, {   0,   0 }, // col 1 (left most)
+    /* index=21 */ {  18,   0 }, {  18,  21 }, {  18,  42 }, // col 2
+    /* index=24 */ {  36,  42 }, {  36,  21 }, {  36,   0 },
+    /* index=27 */ {  54,   0 }, {  54,  21 }, {  54,  42 },
+    /* index=30 */ {  72,   0 }, {  72,  21 }, {  72,  42 },
+    /* index=33 */ {  72,  64 }, {  90,  64 }, { 108,  64 }, // Thumb cluster
+    // Right split per-key.
+    /* index=36 */ {   0,   0 }, {   0,   0 }, {   0,   0 }, // col 10 (right most)
+    /* index=39 */ {   0,   0 }, {   0,   0 }, {   0,   0 }, // col 9
+    /* index=42 */ {   0,   0 }, {   0,   0 }, {   0,   0 },
+    /* index=45 */ {   0,   0 }, {   0,   0 }, {   0,   0 },
+    /* index=48 */ {   0,   0 }, {   0,   0 }, {   0,   0 },
+    /* index=51 */ {   0,   0 }, {   0,   0 }, {   0,   0 }, // Thumb cluster
+    // Right split underglow.
+    /* index=54 */ { 224,  42 }, { 224,  21 }, { 224,   0 }, // col 10 (right most)
+    /* index=57 */ { 206,   0 }, { 206,  21 }, { 206,  42 }, // col 9
+    /* index=60 */ { 188,  42 }, { 188,  21 }, { 188,   0 },
+    /* index=63 */ { 170,   0 }, { 170,  21 }, { 170,  42 },
+    /* index=66 */ { 152,   0 }, { 152,  21 }, { 152,  42 },
+    /* index=69 */ { 152,  64 }, { 134,  64 }, { 116,  64 }, // Thumb cluster
 }, {
     /* LED index to flag. */
-    // Left split.
-    /* index=0  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 1
-    /* index=3  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 2
-    /* index=6  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=9  */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=12 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    /* index=15 */ LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, // Thumb cluster
-    // Right split.
-    /* index=18 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 10
-    /* index=21 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 9
+    // Left split underglow.
+    /* index=0  */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=3  */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=6  */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=9  */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=12 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=15 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    // Left split per-key.
+    /* index=18 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 1
+    /* index=21 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 2
     /* index=24 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
     /* index=27 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
     /* index=30 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
     /* index=33 */ LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, // Thumb cluster
+    // Right split underglow.
+    /* index=36 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=39 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=42 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=45 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=48 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    /* index=51 */ LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW, LED_FLAG_UNDERGLOW,
+    // Right split per-key.
+    /* index=54 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 10
+    /* index=57 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // col 9
+    /* index=60 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
+    /* index=63 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
+    /* index=66 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
+    /* index=69 */ LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, LED_FLAG_MODIFIER, // Thumb cluster
 } };
 #endif
 // clang-format on
