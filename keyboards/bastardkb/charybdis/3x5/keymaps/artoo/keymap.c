@@ -39,12 +39,6 @@ enum charybdis_keymap_artoo_layers {
 #define BSP_NAV LT(LAYER_NAV, KC_BSPC)
 #define MOUSE(KC) LT(LAYER_MOUSE, KC)
 
-#define USR_RDO KC_AGAIN
-#define USR_PST S(KC_INS)
-#define USR_CPY C(KC_INS)
-#define USR_CUT S(KC_DEL)
-#define USR_UND KC_UNDO
-
 #define MS_L KC_MS_LEFT
 #define MS_R KC_MS_RIGHT
 #define MS_D KC_MS_DOWN
