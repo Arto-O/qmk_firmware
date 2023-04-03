@@ -27,6 +27,11 @@ enum charybdis_keymap_artoo_layers {
     LAYER_SYM,
     LAYER_NUM,
     LAYER_FUN,
+    LAYER_SNIPE,
+};
+
+enum custom_keycodes {
+    BOWSNIP = QK_USER,
 };
 
 // Automatically enable sniping when the mouse layer is on.
@@ -38,12 +43,6 @@ enum charybdis_keymap_artoo_layers {
 #define ENT_MED LT(LAYER_MEDIA, KC_ENT)
 #define BSP_NAV LT(LAYER_NAV, KC_BSPC)
 #define MOUSE(KC) LT(LAYER_MOUSE, KC)
-
-#define USR_RDO KC_AGAIN
-#define USR_PST S(KC_INS)
-#define USR_CPY C(KC_INS)
-#define USR_CUT S(KC_DEL)
-#define USR_UND KC_UNDO
 
 #define MS_L KC_MS_LEFT
 #define MS_R KC_MS_RIGHT
@@ -108,6 +107,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define ______________HOME_ROW_GACS_R______________    U_NA, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI
 #define ______________HOME_ROW_ALGR_R______________    U_NA,    U_NA,    U_NA, KC_ALGR,    U_NA
 #define ______________EMPTY_HALF_ROW_______________    U_NU,    U_NU,    U_NU,    U_NU,    U_NU
+#define _______________TRNS_HALF_ROW_______________ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
 /** Layers. */
 
@@ -147,11 +147,18 @@ const key_override_t **key_overrides = (const key_override_t *[]){
                          U_NA,    U_NA,    U_NA, KC_MINS,    KC_0
 
 // Function keys.
-#define LAYOUT_LAYER_FUN                                                                       \
-     __________________RESET_L__________________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
-     ______________HOME_ROW_GACS_L______________, KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
-     ______________HOME_ROW_ALGR_L______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
-                          U_NA,    U_NA,    U_NA,  KC_ENT, KC_BSPC
+#define LAYOUT_LAYER_FUN                                                                      \
+    __________________RESET_L__________________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
+    ______________HOME_ROW_GACS_L______________, KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
+    ______________HOME_ROW_ALGR_L______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
+                         U_NA,    U_NA,    U_NA,  KC_ENT, KC_BSPC
+
+// Layer for holding snipe while keeping a bow extended in Mincraft
+#define LAYOUT_LAYER_SNIPE                                                                    \
+    _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
+    _______________TRNS_HALF_ROW_______________, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SNIPING, \
+    _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
+                         _______________TRNS_HALF_ROW_______________
 
 /**
  * Add Home Row mod to a layout.
@@ -195,7 +202,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
             L00,        L01,        L02,        L03,        L04,  \
             R05,        R06,        R07,        R08,        R09,  \
             L10,        L11,        L12,        L13,        L14,  \
-            R15,        R16,        R17,        R18,        R19,  \
+            R15,        R16,    BOWSNIP,        R18,        R19,  \
       MOUSE(L20),       L21,        L22,        L23,        L24,  \
             R25,        R26,        R27,        R28,  MOUSE(R29), \
       __VA_ARGS__
@@ -223,15 +230,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_wrapper(
     MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))
   ),
-  [LAYER_MC] = LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
-  [LAYER_MEDIA] = LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
-  [LAYER_NAV] = LAYOUT_wrapper(LAYOUT_LAYER_NAV),
-  [LAYER_MOUSE] = LAYOUT_wrapper(LAYOUT_LAYER_MOUSE),
-  [LAYER_SYM] = LAYOUT_wrapper(LAYOUT_LAYER_SYM),
-  [LAYER_NUM] = LAYOUT_wrapper(LAYOUT_LAYER_NUM),
-  [LAYER_FUN] = LAYOUT_wrapper(LAYOUT_LAYER_FUN),
+  [LAYER_MC] =      LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
+  [LAYER_MEDIA] =   LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
+  [LAYER_NAV] =     LAYOUT_wrapper(LAYOUT_LAYER_NAV),
+  [LAYER_MOUSE] =   LAYOUT_wrapper(LAYOUT_LAYER_MOUSE),
+  [LAYER_SYM] =     LAYOUT_wrapper(LAYOUT_LAYER_SYM),
+  [LAYER_NUM] =     LAYOUT_wrapper(LAYOUT_LAYER_NUM),
+  [LAYER_FUN] =     LAYOUT_wrapper(LAYOUT_LAYER_FUN),
+  [LAYER_SNIPE] =   LAYOUT_wrapper(LAYOUT_LAYER_SNIPE),
 };
 // clang-format on
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case BOWSNIP:
+            if (record->event.pressed) {
+                register_code(KC_E);
+                layer_on(LAYER_SNIPE);
+            } else {
+                layer_off(LAYER_SNIPE);
+                unregister_code(KC_E);
+            }
+
+            break;
+    }
+
+    return true;
+};
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(CHARYBDIS_AUTO_SNIPING_ON_LAYER)
 layer_state_t layer_state_set_kb(layer_state_t state) {
