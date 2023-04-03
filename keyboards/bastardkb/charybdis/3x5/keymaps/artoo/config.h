@@ -82,6 +82,8 @@
  */
 #define IGNORE_MOD_TAP_INTERRUPT
 
+#define QUICK_TAP_TERM 0
+
 /** Charybdis-specific features. */
 
 #ifdef POINTING_DEVICE_ENABLE
