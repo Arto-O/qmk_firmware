@@ -4,7 +4,7 @@
         "device_version": "2.0.0"
     },
     "split": {
-        "soft_serial_pin": "GP1"
+        "soft_serial_pin": "GP13"
     },
     "processor": "RP2040",
     "bootloader": "rp2040"
