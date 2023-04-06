@@ -289,6 +289,7 @@ bool rgb_matrix_indicators_user() {
     }
 
     switch (get_highest_layer(layer_state|default_layer_state)) {
+        case LAYER_SNIPE:
         case LAYER_MC:
             for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 switch (i) {
@@ -371,6 +372,7 @@ bool rgb_matrix_indicators_user() {
                         break;
                 }
             }
+        break;
     }
 
     return false;
