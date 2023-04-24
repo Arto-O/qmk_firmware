@@ -1,5 +1,6 @@
 /**
  * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+ * Copyright 2023 casuanoob <casuanoob@hotmail.com> (@casuanoob)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,8 +29,7 @@
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
 /* RGB settings. */
-// #define RGB_DI_PIN GP0  // Per-key.
-#define RGB_DI_PIN GP10 // Underglow.
+#define RGB_DI_PIN GP10
 
 /* VBUS detection. */
 #define USB_VBUS_PIN GP19
@@ -37,6 +37,12 @@
 /* CRC. */
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
+
+/* Encoders. */
+#define ENCODERS_PAD_A \
+    { GP25 }
+#define ENCODERS_PAD_B \
+    { GP24 }
 
 /* Cirque trackpad over SPI. */
 #define SPI_SCK_PIN GP22
@@ -46,14 +52,13 @@
 #undef CIRQUE_PINNACLE_DIAMETER_MM
 #define CIRQUE_PINNACLE_DIAMETER_MM 40
 
-/* OLED over i2c. */
-#define I2C1_CLOCK_SPEED 400000
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
-#define OLED_DISPLAY_HEIGHT 128
-
 /* Reset. */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
+
+/* Bootmagic. */
+#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
 
 /* RGB settings. */
 #define RGBLED_NUM 72
@@ -65,9 +70,10 @@
 #    define SPLIT_TRANSPORT_MIRROR
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 // Startup values.
 #    define RGB_MATRIX_DEFAULT_HUE 0
@@ -110,6 +116,9 @@
 #    define ENABLE_RGB_MATRIX_HUE_BREATHING
 #    define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #    define ENABLE_RGB_MATRIX_HUE_WAVE
+#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#    define ENABLE_RGB_MATRIX_PIXEL_FLOW
+#    define ENABLE_RGB_MATRIX_PIXEL_RAIN
 #    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #    define ENABLE_RGB_MATRIX_DIGITAL_RAIN
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
