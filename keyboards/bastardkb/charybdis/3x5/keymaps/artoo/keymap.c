@@ -43,6 +43,7 @@ enum custom_keycodes {
 #define TAB_SYM LT(LAYER_SYM, KC_TAB)
 #define ENT_MED LT(LAYER_MEDIA, KC_ENT)
 #define BSP_NAV LT(LAYER_NAV, KC_BSPC)
+#define TAB_NUM LT(LAYER_NUM, KC_TAB)
 #define MOUSE(KC) LT(LAYER_MOUSE, KC)
 
 #define MS_L KC_MS_LEFT
@@ -97,7 +98,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
        Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, \
        A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, \
        Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, \
-       ESC_FUN,  KC_SPC, TAB_SYM,    ENT_MED, BSP_NAV)
+       ESC_FUN,  KC_SPC, TAB_NUM,    ENT_MED, BSP_NAV)
 
 /** Convenience key shorthands. */
 #define U_NA KC_NO // Present but not available for use.
