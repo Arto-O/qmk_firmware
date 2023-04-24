@@ -21,6 +21,7 @@
 enum charybdis_keymap_artoo_layers {
     LAYER_BASE = 0,
     LAYER_MC,
+    LAYER_TYPTEM,
     LAYER_MEDIA,
     LAYER_NAV,
     LAYER_MOUSE,
@@ -100,8 +101,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define U_OUML ALGR(KC_P)
 
 /** Convenience row shorthands. */
-#define __________________RESET_L__________________ QK_BOOT,U_NA,DF(LAYER_MC),DF(LAYER_BASE),U_NA
-#define __________________RESET_R__________________ U_NA,DF(LAYER_BASE),DF(LAYER_MC),U_NA,QK_BOOT
+#define __________________RESET_L__________________ \
+    QK_BOOT,DF(LAYER_TYPTEM),DF(LAYER_MC),DF(LAYER_BASE),U_NA
+#define __________________RESET_R__________________ \
+    U_NA,DF(LAYER_BASE),DF(LAYER_MC),DF(LAYER_TYPTEM),QK_BOOT
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,    U_NA
 #define ______________HOME_ROW_ALGR_L______________    U_NA, KC_ALGR,    U_NA,    U_NA,    U_NA
 #define ______________HOME_ROW_GACS_R______________    U_NA, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI
@@ -224,13 +227,28 @@ const key_override_t **key_overrides = (const key_override_t *[]){
       __VA_ARGS__
 #define MC_MOD(...) _MC_MOD(__VA_ARGS__)
 
+#define _TYPTEM_MOD(                                              \
+    L00, L01, L02, L03, L04, R05, R06, R07, R08, R09,             \
+    L10, L11, L12, L13, L14, R15, R16, R17, R18, R19,             \
+    L20, L21, L22, L23, L24, R25, R26, R27, R28, R29,             \
+              L32, L33, L34, L35, L36                             \
+    ...)                                                          \
+            L00,        L01,        L02,        L03,        L04,  \
+            R05,        R06,        R07,        R08,        R09,  \
+            L10,        L11,        L12,        L13,        L14,  \
+            R15,        R16,        R17,        R18,        R19,  \
+            L20,        L21,        L22,        L23,        L24,  \
+            R25,        R26,        R27,        R28,        R29,  \
+                              KC_ESC,KC_SPC,LT(LAYER_NUM, KC_TAB),\
+         KC_ENT,    KC_BSPC
+#define TYPTEM_MOD(...) _TYPTEM_MOD(__VA_ARGS__)
+
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LAYER_BASE] = LAYOUT_wrapper(
-    MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))
-  ),
+  [LAYER_BASE] = LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
   [LAYER_MC] =      LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
+  [LAYER_TYPTEM] =  LAYOUT_wrapper(TYPTEM_MOD(LAYOUT_LAYER_BASE)),
   [LAYER_MEDIA] =   LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
   [LAYER_NAV] =     LAYOUT_wrapper(LAYOUT_LAYER_NAV),
   [LAYER_MOUSE] =   LAYOUT_wrapper(LAYOUT_LAYER_MOUSE),
