@@ -92,6 +92,13 @@ const key_override_t **key_overrides = (const key_override_t *[]){
        Z,    X,    K,    C,    V,    J,    L,    U,    P, SLSH, \
        ESC_FUN, SPC_NUM, TAB_SYM,    ENT_MED, BSP_NAV)
 
+/** QWERTY layer for Typing Tempo */
+#define LAYOUT_LAYER_TYPTEM KC_LAYOUT_wrapper(                  \
+       Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, \
+       A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, \
+       Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, \
+       ESC_FUN,  KC_SPC, TAB_SYM,    ENT_MED, BSP_NAV)
+
 /** Convenience key shorthands. */
 #define U_NA KC_NO // Present but not available for use.
 #define U_NU KC_NO // Available but not used.
@@ -227,29 +234,12 @@ const key_override_t **key_overrides = (const key_override_t *[]){
       __VA_ARGS__
 #define MC_MOD(...) _MC_MOD(__VA_ARGS__)
 
-#define _TYPTEM_MOD(                                              \
-    L00, L01, L02, L03, L04, R05, R06, R07, R08, R09,             \
-    L10, L11, L12, L13, L14, R15, R16, R17, R18, R19,             \
-    L20, L21, L22, L23, L24, R25, R26, R27, R28, R29,             \
-              L32, L33, L34, L35,                                 \
-    ...)                                                          \
-            L00,        L01,        L02,        L03,        L04,  \
-            R05,        R06,        R07,        R08,    KC_SCLN,  \
-            L10,        L11,        L12,        L13,        L14,  \
-            R15,        R16,        R17,        R18,        R19,  \
-            L20,        L21,        L22,        L23,        L24,  \
-            R25,        R26,        R27,        R28,        R29,  \
-                              KC_ESC,KC_SPC,LT(LAYER_NUM, KC_TAB),\
-         KC_ENT,                                                  \
-      __VA_ARGS__
-#define TYPTEM_MOD(...) _TYPTEM_MOD(__VA_ARGS__)
-
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
   [LAYER_MC] =      LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
-  [LAYER_TYPTEM] =  LAYOUT_wrapper(TYPTEM_MOD(LAYOUT_LAYER_BASE)),
+  [LAYER_TYPTEM] =  LAYOUT_wrapper(LAYOUT_LAYER_TYPTEM),
   [LAYER_MEDIA] =   LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
   [LAYER_NAV] =     LAYOUT_wrapper(LAYOUT_LAYER_NAV),
   [LAYER_MOUSE] =   LAYOUT_wrapper(LAYOUT_LAYER_MOUSE),
@@ -276,6 +266,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 };
+
+layer_state_t layer_state_set_uset(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case LAYER_TYPTEM:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+            break;
+        default:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_LEFT_RIGHT);
+            break;
+    }
+    return state;
+}
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(CHARYBDIS_AUTO_SNIPING_ON_LAYER)
 layer_state_t layer_state_set_kb(layer_state_t state) {
