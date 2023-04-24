@@ -83,6 +83,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define QUICK_TAP_TERM 0
+#define TAP_CODE_DELAY 10
 
 /** Charybdis-specific features. */
 
