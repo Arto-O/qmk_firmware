@@ -29,6 +29,7 @@ enum charybdis_keymap_artoo_layers {
     LAYER_NUM,
     LAYER_FUN,
     LAYER_SNIPE,
+    LAYER_NUMROW,
 };
 
 enum custom_keycodes {
@@ -43,7 +44,10 @@ enum custom_keycodes {
 #define TAB_SYM LT(LAYER_SYM, KC_TAB)
 #define ENT_MED LT(LAYER_MEDIA, KC_ENT)
 #define BSP_NAV LT(LAYER_NAV, KC_BSPC)
-#define TAB_NUM LT(LAYER_NUM, KC_TAB)
+
+#define ENT_NAV LT(LAYER_NAV, KC_ENT)
+#define BSP_NUMROW LT(LAYER_NUMROW, KC_BSPC)
+
 #define MOUSE(KC) LT(LAYER_MOUSE, KC)
 
 #define MS_L KC_MS_LEFT
@@ -98,7 +102,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
        Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, \
        A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, \
        Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, \
-       ESC_FUN,  KC_SPC, TAB_NUM,    ENT_MED, BSP_NAV)
+       ESC_FUN,  KC_SPC, TAB_SYM,    ENT_NAV, BSP_NUMROW)
 
 /** Convenience key shorthands. */
 #define U_NA KC_NO // Present but not available for use.
@@ -169,7 +173,14 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
     _______________TRNS_HALF_ROW_______________, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SNIPING, \
     _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
-                         _______________TRNS_HALF_ROW_______________
+                      _______________TRNS_HALF_ROW_______________
+
+// Numrow layer for playing Typing Tempo
+#define LAYOUT_LAYER_NUMROW                                                                   \
+    _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
+       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, \
+    _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
+                      _______________TRNS_HALF_ROW_______________
 
 /**
  * Add Home Row mod to a layout.
@@ -238,7 +249,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LAYER_BASE] = LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
+  [LAYER_BASE] =    LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
   [LAYER_MC] =      LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
   [LAYER_TYPTEM] =  LAYOUT_wrapper(LAYOUT_LAYER_TYPTEM),
   [LAYER_MEDIA] =   LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
@@ -248,6 +259,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_NUM] =     LAYOUT_wrapper(LAYOUT_LAYER_NUM),
   [LAYER_FUN] =     LAYOUT_wrapper(LAYOUT_LAYER_FUN),
   [LAYER_SNIPE] =   LAYOUT_wrapper(LAYOUT_LAYER_SNIPE),
+  [LAYER_NUMROW] =  LAYOUT_wrapper(LAYOUT_LAYER_NUMROW),
 };
 // clang-format on
 
@@ -268,8 +280,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-layer_state_t layer_state_set_uset(layer_state_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
+        case LAYER_NUMROW:
         case LAYER_TYPTEM:
             rgb_matrix_mode_noeeprom(RGB_MATRIX_JELLYBEAN_RAINDROPS);
             break;
