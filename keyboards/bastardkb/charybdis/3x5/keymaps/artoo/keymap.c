@@ -281,10 +281,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
+    switch (get_highest_layer(layer_state|default_layer_state)) {
         case LAYER_NUMROW:
         case LAYER_TYPTEM:
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_JELLYBEAN_RAINDROPS);
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
             break;
         default:
             rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_LEFT_RIGHT);
