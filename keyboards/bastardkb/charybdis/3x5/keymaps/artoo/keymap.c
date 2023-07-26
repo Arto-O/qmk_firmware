@@ -75,11 +75,11 @@ enum custom_keycodes {
 
 // Tap Dance
 enum {
-    CPS_PWR,
+    CPS_SLP,
 };
 
 tap_dance_action_t tap_dance_actions[] = {
-    [CPS_PWR] = ACTION_TAP_DANCE_DOUBLE(KC_CAPS, KC_PWR),
+    [CPS_SLP] = ACTION_TAP_DANCE_DOUBLE(KC_CAPS, KC_SLEP),
 };
 
 // Key Overrides
@@ -129,7 +129,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 // Media.
 #define LAYOUT_LAYER_MEDIA                                                                    \
   G(KC_F12), KC_WBAK, KC_VOLU, KC_WFWD,G(KC_F10),__________________RESET_R__________________, \
-  G(KC_F11), KC_MPRV, KC_VOLD,KC_MNXT,TD(CPS_PWR),______________HOME_ROW_GACS_R______________,\
+  G(KC_F11), KC_MPRV, KC_VOLD,KC_MNXT,TD(CPS_SLP),______________HOME_ROW_GACS_R______________,\
     KC_CALC, KC_MAIL, KC_WSCH, KC_MYCM, KC_WREF, ______________HOME_ROW_ALGR_R______________, \
                        KC_MUTE, KC_MPLY, KC_MSTP,    U_NA,    U_NA
 
