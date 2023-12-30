@@ -21,7 +21,7 @@
 enum charybdis_keymap_artoo_layers {
     LAYER_BASE = 0,
     LAYER_MC,
-    LAYER_TYPTEM,
+    LAYER_GAME,
     LAYER_MEDIA,
     LAYER_NAV,
     LAYER_MOUSE,
@@ -29,7 +29,6 @@ enum charybdis_keymap_artoo_layers {
     LAYER_NUM,
     LAYER_FUN,
     LAYER_SNIPE,
-    LAYER_NUMROW,
 };
 
 enum custom_keycodes {
@@ -46,7 +45,6 @@ enum custom_keycodes {
 #define BSP_NAV LT(LAYER_NAV, KC_BSPC)
 
 #define ENT_NAV LT(LAYER_NAV, KC_ENT)
-#define BSP_NUMROW LT(LAYER_NUMROW, KC_BSPC)
 
 #define MOUSE(KC) LT(LAYER_MOUSE, KC)
 
@@ -97,13 +95,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
        Z,    X,    K,    C,    V,    J,    L,    U,    P, SLSH, \
        ESC_FUN, SPC_NUM, TAB_SYM,    ENT_MED, BSP_NAV)
 
-/** QWERTY layer for Typing Tempo */
-#define LAYOUT_LAYER_TYPTEM KC_LAYOUT_wrapper(                  \
-       Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, \
-       A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, \
-       Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH, \
-       ESC_FUN,  KC_SPC, TAB_SYM,    ENT_NAV, BSP_NUMROW)
-
 /** Convenience key shorthands. */
 #define U_NA KC_NO // Present but not available for use.
 #define U_NU KC_NO // Available but not used.
@@ -114,9 +105,9 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 /** Convenience row shorthands. */
 #define __________________RESET_L__________________ \
-    QK_BOOT,DF(LAYER_TYPTEM),DF(LAYER_MC),DF(LAYER_BASE),U_NA
+    QK_BOOT,DF(LAYER_GAME),DF(LAYER_MC),DF(LAYER_BASE),U_NA
 #define __________________RESET_R__________________ \
-    U_NA,DF(LAYER_BASE),DF(LAYER_MC),DF(LAYER_TYPTEM),QK_BOOT
+    U_NA,DF(LAYER_BASE),DF(LAYER_MC),DF(LAYER_GAME),QK_BOOT
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,    U_NA
 #define ______________HOME_ROW_ALGR_L______________    U_NA, KC_ALGR,    U_NA,    U_NA,    U_NA
 #define ______________HOME_ROW_GACS_R______________    U_NA, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI
@@ -175,13 +166,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
                       _______________TRNS_HALF_ROW_______________
 
-// Numrow layer for playing Typing Tempo
-#define LAYOUT_LAYER_NUMROW                                                                   \
-    _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
-       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, \
-    _______________TRNS_HALF_ROW_______________, _______________TRNS_HALF_ROW_______________, \
-                      _______________TRNS_HALF_ROW_______________
-
 /**
  * Add Home Row mod to a layout.
  *
@@ -205,6 +189,20 @@ const key_override_t **key_overrides = (const key_override_t *[]){
              R25,         R26,         R27,  ALGR_T(R28),        R29,  \
       __VA_ARGS__
 #define HOME_ROW_MOD_GACS(...) _HOME_ROW_MOD_GACS(__VA_ARGS__)
+
+#define _RIGHT_ONLY_HOME_ROW_MOD_GACS(                                 \
+    L00, L01, L02, L03, L04, R05, R06, R07, R08, R09,                  \
+    L10, L11, L12, L13, L14, R15, R16, R17, R18, R19,                  \
+    L20, L21, L22, L23, L24, R25, R26, R27, R28, R29,                  \
+    ...)                                                               \
+             L00,         L01,         L02,         L03,         L04,  \
+             R05,         R06,         R07,         R08,         R09,  \
+             L10,         L11,         L12,         L13,         L14,  \
+             R15,  RSFT_T(R16), RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
+             L20,         L21,         L22,         L23,         L24,  \
+             R25,         R26,         R27,  ALGR_T(R28),        R29,  \
+      __VA_ARGS__
+#define RIGHT_ONLY_HOME_ROW_MOD_GACS(...) _RIGHT_ONLY_HOME_ROW_MOD_GACS(__VA_ARGS__)
 
 /**
  * Add mouse layer keys to a layout.
@@ -251,7 +249,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] =    LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
   [LAYER_MC] =      LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
-  [LAYER_TYPTEM] =  LAYOUT_wrapper(LAYOUT_LAYER_TYPTEM),
+  [LAYER_GAME] =    LAYOUT_wrapper(MOUSE_MOD(RIGHT_ONLY_HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
   [LAYER_MEDIA] =   LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
   [LAYER_NAV] =     LAYOUT_wrapper(LAYOUT_LAYER_NAV),
   [LAYER_MOUSE] =   LAYOUT_wrapper(LAYOUT_LAYER_MOUSE),
@@ -259,7 +257,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_NUM] =     LAYOUT_wrapper(LAYOUT_LAYER_NUM),
   [LAYER_FUN] =     LAYOUT_wrapper(LAYOUT_LAYER_FUN),
   [LAYER_SNIPE] =   LAYOUT_wrapper(LAYOUT_LAYER_SNIPE),
-  [LAYER_NUMROW] =  LAYOUT_wrapper(LAYOUT_LAYER_NUMROW),
 };
 // clang-format on
 
@@ -281,10 +278,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(layer_state|default_layer_state)) {
-        case LAYER_NUMROW:
-        case LAYER_TYPTEM:
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+    switch (get_highest_layer(default_layer_state)) {
+        case LAYER_GAME:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINDROPS);
             break;
         default:
             rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_LEFT_RIGHT);
@@ -413,15 +409,3 @@ bool rgb_matrix_indicators_user() {
     return false;
 }
 #endif
-
-void shutdown_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_setrgb(RGB_RED);
-#endif // RGBLIGHT_ENABLE
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_color_all(RGB_RED);
-    rgb_matrix_update_pwm_buffers();
-#endif // RGB_MATRIX_ENABLE
-}
