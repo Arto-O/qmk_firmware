@@ -20,6 +20,7 @@
 
 enum charybdis_keymap_artoo_layers {
     LAYER_BASE = 0,
+    LAYER_FRF,
     LAYER_MC,
     LAYER_GAME,
     LAYER_MEDIA,
@@ -43,8 +44,6 @@ enum custom_keycodes {
 #define TAB_SYM LT(LAYER_SYM, KC_TAB)
 #define ENT_MED LT(LAYER_MEDIA, KC_ENT)
 #define BSP_NAV LT(LAYER_NAV, KC_BSPC)
-
-#define ENT_NAV LT(LAYER_NAV, KC_ENT)
 
 #define MOUSE(KC) LT(LAYER_MOUSE, KC)
 
@@ -102,12 +101,16 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 /** Umlauts */
 #define U_AUML ALGR(KC_Q)
 #define U_OUML ALGR(KC_P)
+#define U_UUML ALGR(KC_Y)
+
+/** Circumflex */
+#define U_CIRC ALGR(KC_6)
 
 /** Convenience row shorthands. */
 #define __________________RESET_L__________________ \
-    QK_BOOT,DF(LAYER_GAME),DF(LAYER_MC),DF(LAYER_BASE),U_NA
+    QK_BOOT,DF(LAYER_GAME),DF(LAYER_MC),DF(LAYER_BASE),DF(LAYER_FRF)
 #define __________________RESET_R__________________ \
-    U_NA,DF(LAYER_BASE),DF(LAYER_MC),DF(LAYER_GAME),QK_BOOT
+    DF(LAYER_FRF),DF(LAYER_BASE),DF(LAYER_MC),DF(LAYER_GAME),QK_BOOT
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,    U_NA
 #define ______________HOME_ROW_ALGR_L______________    U_NA, KC_ALGR,    U_NA,    U_NA,    U_NA
 #define ______________HOME_ROW_GACS_R______________    U_NA, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI
@@ -205,6 +208,25 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define RIGHT_ONLY_HOME_ROW_MOD_GACS(...) _RIGHT_ONLY_HOME_ROW_MOD_GACS(__VA_ARGS__)
 
 /**
+ * Layer for typing in The Fun Riform.
+ *
+ * Replaces qwerty q with ü and x with circumflex.
+*/
+#define _FRF_MOD(                                               \
+    L00, L01, L02, L03, L04, R05, R06, R07, R08, R09,             \
+    L10, L11, L12, L13, L14, R15, R16, R17, R18, R19,             \
+    L20, L21, L22, L23, L24, R25, R26, R27, R28, R29,             \
+    ...)                                                          \
+         U_UUML,        L01,        L02,        L03,        L04,  \
+            R05,        R06,        R07,        R08,        R09,  \
+            L10,        L11,        L12,        L13,        L14,  \
+            R15,        R16,        R17,        R18,        R19,  \
+      MOUSE(L20),    U_CIRC,        L22,        L23,        L24,  \
+            R25,        R26,        R27,        R28,  MOUSE(R29), \
+      __VA_ARGS__
+#define FRF_MOD(...) _FRF_MOD(__VA_ARGS__)
+
+/**
  * Add mouse layer keys to a layout.
  *
  * Expects a 10-key per row layout.  The layout passed in parameter must contain
@@ -248,6 +270,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] =    LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
+  [LAYER_FRF] =     LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(FRF_MOD(LAYOUT_LAYER_BASE)))),
   [LAYER_MC] =      LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
   [LAYER_GAME] =    LAYOUT_wrapper(MOUSE_MOD(RIGHT_ONLY_HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
   [LAYER_MEDIA] =   LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
@@ -271,6 +294,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_E);
             }
 
+            break;
+        case ALGR_T(U_CIRC):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(U_CIRC);
+                return false;
+            }
             break;
     }
 
