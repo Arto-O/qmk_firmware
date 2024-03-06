@@ -49,6 +49,8 @@ enum custom_keycodes {
 #define ENT_MED LT(LAYER_MEDIA, KC_ENT)
 #define BSP_NAV LT(LAYER_NAV, KC_BSPC)
 
+#define TAB_NUM LT(LAYER_NUM, KC_TAB)
+
 #define MOUSE(KC) LT(LAYER_MOUSE, KC)
 
 #define MS_L KC_MS_LEFT
@@ -92,15 +94,65 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 };
 
 // Combos
-const uint16_t PROGMEM auml_combo[] =   {LCTL_T(KC_R),  KC_M,       COMBO_END};
-const uint16_t PROGMEM ouml_combo[] =   {LALT_T(KC_S),  KC_O,       COMBO_END};
-const uint16_t PROGMEM uuml_combo[] =   {LGUI_T(KC_N),  KC_Q,       COMBO_END};
+const uint16_t PROGMEM auml_combo[] =   {LCTL_T(KC_R),  KC_M,           COMBO_END};
+const uint16_t PROGMEM ouml_combo[] =   {LALT_T(KC_S),  KC_O,           COMBO_END};
+const uint16_t PROGMEM uuml_combo[] =   {LGUI_T(KC_N),  KC_Q,           COMBO_END};
 
-const uint16_t PROGMEM acirc_combo[] =  {LALT_T(KC_A),  KC_D,       COMBO_END};
-const uint16_t PROGMEM ecirc_combo[] =  {RCTL_T(KC_E),  KC_W,       COMBO_END};
-const uint16_t PROGMEM icirc_combo[] =  {RGUI_T(KC_I),  KC_QUOT,    COMBO_END};
-const uint16_t PROGMEM ocirc_combo[] =  {KC_Y,          KC_DOT,     COMBO_END};
-const uint16_t PROGMEM ucirc_combo[] =  {RSFT_T(KC_H),  KC_F,       COMBO_END};
+const uint16_t PROGMEM acirc_combo[] =  {LALT_T(KC_A),  KC_D,           COMBO_END};
+const uint16_t PROGMEM ecirc_combo[] =  {RCTL_T(KC_E),  KC_W,           COMBO_END};
+const uint16_t PROGMEM icirc_combo[] =  {RGUI_T(KC_I),  KC_QUOT,        COMBO_END};
+const uint16_t PROGMEM ocirc_combo[] =  {KC_Y,          KC_DOT,         COMBO_END};
+const uint16_t PROGMEM ucirc_combo[] =  {RSFT_T(KC_H),  KC_F,           COMBO_END};
+
+// Mouse combos
+// Right
+const uint16_t PROGMEM rm1_combo[] =    {KC_L,          KC_U,           COMBO_END};
+const uint16_t PROGMEM rm2_combo[] =    {KC_U,          ALGR_T(KC_P),   COMBO_END};
+const uint16_t PROGMEM rm3_combo[] =    {RCTL_T(KC_E),  KC_U,           COMBO_END};
+const uint16_t PROGMEM rm4_combo[] =    {RSFT_T(KC_H),  KC_L,           COMBO_END};
+const uint16_t PROGMEM rm5_combo[] =    {LALT_T(KC_A),  ALGR_T(KC_P),   COMBO_END};
+const uint16_t PROGMEM rds_combo[] =    {ALGR_T(KC_P),  KC_SLSH,        COMBO_END}; // dragscroll
+
+// Left
+const uint16_t PROGMEM lm1_combo[] =    {KC_C,          KC_K,           COMBO_END};
+const uint16_t PROGMEM lm2_combo[] =    {KC_K,          ALGR_T(KC_X),   COMBO_END};
+const uint16_t PROGMEM lm3_combo[] =    {LCTL_T(KC_R),  KC_K,           COMBO_END};
+const uint16_t PROGMEM lm4_combo[] =    {LSFT_T(KC_T),  KC_C,           COMBO_END};
+const uint16_t PROGMEM lm5_combo[] =    {LALT_T(KC_S),  ALGR_T(KC_X),   COMBO_END};
+const uint16_t PROGMEM lds_combo[] =    {ALGR_T(KC_X),  KC_Z,           COMBO_END};
+
+// Thumb
+const uint16_t PROGMEM tm1_combo[] =    {ESC_FUN,       SPC_NUM,        COMBO_END};
+const uint16_t PROGMEM tm2_combo[] =    {SPC_NUM,       TAB_SYM,        COMBO_END};
+
+// Versions without mod-tap or layer-tap
+const uint16_t PROGMEM gauml_combo[] =   {KC_R,     KC_M,       COMBO_END};
+const uint16_t PROGMEM gouml_combo[] =   {KC_S,     KC_O,       COMBO_END};
+const uint16_t PROGMEM guuml_combo[] =   {KC_N,     KC_Q,       COMBO_END};
+
+const uint16_t PROGMEM gacirc_combo[] =  {KC_A,     KC_D,       COMBO_END};
+const uint16_t PROGMEM gecirc_combo[] =  {KC_E,     KC_W,       COMBO_END};
+const uint16_t PROGMEM gicirc_combo[] =  {KC_I,     KC_QUOT,    COMBO_END};
+const uint16_t PROGMEM gucirc_combo[] =  {KC_H,     KC_F,       COMBO_END};
+
+// Mouse combos
+// Right
+const uint16_t PROGMEM grm2_combo[] =    {KC_U,     KC_P,       COMBO_END};
+const uint16_t PROGMEM grm3_combo[] =    {KC_E,     KC_U,       COMBO_END};
+const uint16_t PROGMEM grm4_combo[] =    {KC_H,     KC_L,       COMBO_END};
+const uint16_t PROGMEM grm5_combo[] =    {KC_A,     KC_P,       COMBO_END};
+const uint16_t PROGMEM grds_combo[] =    {KC_P,     KC_SLSH,    COMBO_END}; // dragscroll
+
+// Left
+const uint16_t PROGMEM glm2_combo[] =    {KC_K,     KC_X,       COMBO_END};
+const uint16_t PROGMEM glm3_combo[] =    {KC_R,     KC_K,       COMBO_END};
+const uint16_t PROGMEM glm4_combo[] =    {KC_T,     KC_C,       COMBO_END};
+const uint16_t PROGMEM glm5_combo[] =    {KC_S,     KC_X,       COMBO_END};
+const uint16_t PROGMEM glds_combo[] =    {KC_X,     KC_Z,       COMBO_END};
+
+// Thumb
+const uint16_t PROGMEM gtm1_combo[] =    {ESC_FUN,  KC_SPC,     COMBO_END};
+const uint16_t PROGMEM gtm2_combo[] =    {KC_SPC,   TAB_NUM,    COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(auml_combo, ALGR(KC_Q)),
@@ -112,6 +164,48 @@ combo_t key_combos[] = {
     COMBO(icirc_combo, ICIRC),
     COMBO(ocirc_combo, OCIRC),
     COMBO(ucirc_combo, UCIRC),
+
+    COMBO(rm1_combo, KC_BTN1),
+    COMBO(rm2_combo, KC_BTN2),
+    COMBO(rm3_combo, KC_BTN3),
+    COMBO(rm4_combo, KC_BTN4),
+    COMBO(rm5_combo, KC_BTN5),
+    COMBO(rds_combo, DRGSCRL),
+
+    COMBO(lm1_combo, KC_BTN1),
+    COMBO(lm2_combo, KC_BTN2),
+    COMBO(lm3_combo, KC_BTN3),
+    COMBO(lm4_combo, KC_BTN4),
+    COMBO(lm5_combo, KC_BTN5),
+    COMBO(lds_combo, DRGSCRL),
+
+    COMBO(tm1_combo, KC_BTN1),
+    COMBO(tm2_combo, KC_BTN2),
+
+
+    COMBO(gauml_combo, ALGR(KC_Q)),
+    COMBO(gouml_combo, ALGR(KC_P)),
+    COMBO(guuml_combo, ALGR(KC_Y)),
+
+    COMBO(gacirc_combo, ACIRC),
+    COMBO(gecirc_combo, ECIRC),
+    COMBO(gicirc_combo, ICIRC),
+    COMBO(gucirc_combo, UCIRC),
+
+    COMBO(grm2_combo, KC_BTN2),
+    COMBO(grm3_combo, KC_BTN3),
+    COMBO(grm4_combo, KC_BTN4),
+    COMBO(grm5_combo, KC_BTN5),
+    COMBO(grds_combo, DRGSCRL),
+
+    COMBO(glm2_combo, KC_BTN2),
+    COMBO(glm3_combo, KC_BTN3),
+    COMBO(glm4_combo, KC_BTN4),
+    COMBO(glm5_combo, KC_BTN5),
+    COMBO(glds_combo, DRGSCRL),
+
+    COMBO(gtm1_combo, KC_BTN1),
+    COMBO(gtm2_combo, KC_BTN2),
 };
 
 /** Base layer */
@@ -262,7 +356,7 @@ combo_t key_combos[] = {
             R15,        R16,    BOWSNIP,        R18,        R19,  \
             L20,        L21,        L22,        L23,        L24,  \
             R25,        R26,        R27,        R28,  MOUSE(R29), \
-                                 L32,KC_SPC,LT(LAYER_NUM, KC_TAB),\
+                                    L32,     KC_SPC,     TAB_NUM, \
       __VA_ARGS__
 #define MC_MOD(...) _MC_MOD(__VA_ARGS__)
 
