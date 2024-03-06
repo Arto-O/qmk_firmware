@@ -20,7 +20,6 @@
 
 enum charybdis_keymap_artoo_layers {
     LAYER_BASE = 0,
-    LAYER_FRF,
     LAYER_MC,
     LAYER_GAME,
     LAYER_MEDIA,
@@ -34,6 +33,11 @@ enum charybdis_keymap_artoo_layers {
 
 enum custom_keycodes {
     BOWSNIP = QK_USER,
+    ACIRC,
+    ECIRC,
+    ICIRC,
+    OCIRC,
+    UCIRC,
 };
 
 // Automatically enable sniping when the mouse layer is on.
@@ -87,6 +91,29 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     NULL // Null terminate the array of overrides!
 };
 
+// Combos
+const uint16_t PROGMEM auml_combo[] =   {LCTL_T(KC_R),  KC_M,       COMBO_END};
+const uint16_t PROGMEM ouml_combo[] =   {LALT_T(KC_S),  KC_O,       COMBO_END};
+const uint16_t PROGMEM uuml_combo[] =   {LGUI_T(KC_N),  KC_Q,       COMBO_END};
+
+const uint16_t PROGMEM acirc_combo[] =  {LALT_T(KC_A),  KC_D,       COMBO_END};
+const uint16_t PROGMEM ecirc_combo[] =  {RCTL_T(KC_E),  KC_W,       COMBO_END};
+const uint16_t PROGMEM icirc_combo[] =  {RGUI_T(KC_I),  KC_QUOT,    COMBO_END};
+const uint16_t PROGMEM ocirc_combo[] =  {KC_Y,          KC_DOT,     COMBO_END};
+const uint16_t PROGMEM ucirc_combo[] =  {RSFT_T(KC_H),  KC_F,       COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(auml_combo, ALGR(KC_Q)),
+    COMBO(ouml_combo, ALGR(KC_P)),
+    COMBO(uuml_combo, ALGR(KC_Y)),
+
+    COMBO(acirc_combo, ACIRC),
+    COMBO(ecirc_combo, ECIRC),
+    COMBO(icirc_combo, ICIRC),
+    COMBO(ocirc_combo, OCIRC),
+    COMBO(ucirc_combo, UCIRC),
+};
+
 /** Base layer */
 #define LAYOUT_LAYER_BASE KC_LAYOUT_wrapper(                    \
        Q,    O,    M,    B, COMM,  DOT,    F,    W,    D, QUOT, \
@@ -98,19 +125,11 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define U_NA KC_NO // Present but not available for use.
 #define U_NU KC_NO // Available but not used.
 
-/** Umlauts */
-#define U_AUML ALGR(KC_Q)
-#define U_OUML ALGR(KC_P)
-#define U_UUML ALGR(KC_Y)
-
-/** Circumflex */
-#define U_CIRC ALGR(KC_6)
-
 /** Convenience row shorthands. */
 #define __________________RESET_L__________________ \
-    QK_BOOT,DF(LAYER_GAME),DF(LAYER_MC),DF(LAYER_BASE),DF(LAYER_FRF)
+    QK_BOOT,DF(LAYER_GAME),DF(LAYER_MC),DF(LAYER_BASE),U_NU
 #define __________________RESET_R__________________ \
-    DF(LAYER_FRF),DF(LAYER_BASE),DF(LAYER_MC),DF(LAYER_GAME),QK_BOOT
+    U_NU,DF(LAYER_BASE),DF(LAYER_MC),DF(LAYER_GAME),QK_BOOT
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,    U_NA
 #define ______________HOME_ROW_ALGR_L______________    U_NA, KC_ALGR,    U_NA,    U_NA,    U_NA
 #define ______________HOME_ROW_GACS_R______________    U_NA, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI
@@ -131,7 +150,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define LAYOUT_LAYER_NAV                                                                      \
     KC_PGUP, KC_HOME,   KC_UP,  KC_END,  KC_INS, __________________RESET_R__________________, \
     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, CW_TOGG, ______________HOME_ROW_GACS_R______________, \
-       U_NU,  U_OUML,  U_AUML,    U_NU,    U_NU, ______________HOME_ROW_ALGR_R______________, \
+       U_NU,    U_NU,    U_NU,    U_NU,    U_NU, ______________HOME_ROW_ALGR_R______________, \
                        KC_APP,  KC_SPC,  KC_TAB,    U_NA,    U_NA
 
 // Mouse.
@@ -208,25 +227,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define RIGHT_ONLY_HOME_ROW_MOD_GACS(...) _RIGHT_ONLY_HOME_ROW_MOD_GACS(__VA_ARGS__)
 
 /**
- * Layer for typing in The Fun Riform.
- *
- * Replaces qwerty q with ü and x with circumflex.
-*/
-#define _FRF_MOD(                                               \
-    L00, L01, L02, L03, L04, R05, R06, R07, R08, R09,             \
-    L10, L11, L12, L13, L14, R15, R16, R17, R18, R19,             \
-    L20, L21, L22, L23, L24, R25, R26, R27, R28, R29,             \
-    ...)                                                          \
-         U_UUML,        L01,        L02,        L03,        L04,  \
-            R05,        R06,        R07,        R08,        R09,  \
-            L10,        L11,        L12,        L13,        L14,  \
-            R15,        R16,        R17,        R18,        R19,  \
-      MOUSE(L20),    U_CIRC,        L22,        L23,        L24,  \
-            R25,        R26,        R27,        R28,  MOUSE(R29), \
-      __VA_ARGS__
-#define FRF_MOD(...) _FRF_MOD(__VA_ARGS__)
-
-/**
  * Add mouse layer keys to a layout.
  *
  * Expects a 10-key per row layout.  The layout passed in parameter must contain
@@ -270,7 +270,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] =    LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
-  [LAYER_FRF] =     LAYOUT_wrapper(MOUSE_MOD(HOME_ROW_MOD_GACS(FRF_MOD(LAYOUT_LAYER_BASE)))),
   [LAYER_MC] =      LAYOUT_wrapper(MC_MOD(LAYOUT_LAYER_BASE)),
   [LAYER_GAME] =    LAYOUT_wrapper(MOUSE_MOD(RIGHT_ONLY_HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))),
   [LAYER_MEDIA] =   LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
@@ -295,10 +294,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
 
             break;
-        case ALGR_T(U_CIRC):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(U_CIRC);
-                return false;
+        case ACIRC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6")"a");
+            }
+            break;
+        case ECIRC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6")"e");
+            }
+            break;
+        case ICIRC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6")"i");
+            }
+            break;
+        case OCIRC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6")"o");
+            }
+            break;
+        case UCIRC:
+            if (record->event.pressed) {
+                SEND_STRING(SS_ALGR("6")"u");
             }
             break;
     }
