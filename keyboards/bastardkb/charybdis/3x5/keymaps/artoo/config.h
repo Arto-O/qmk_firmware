@@ -71,6 +71,8 @@
 #define QUICK_TAP_TERM 0
 #define TAP_CODE_DELAY 20
 
+#define COMBO_TERM 36
+
 /** Charybdis-specific features. */
 
 #ifdef POINTING_DEVICE_ENABLE
