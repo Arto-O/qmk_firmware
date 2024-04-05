@@ -85,14 +85,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [CPS_SLP] = ACTION_TAP_DANCE_DOUBLE(KC_CAPS, KC_SLEP),
 };
 
-// Key Overrides
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, BSP_NAV, KC_DEL);
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &delete_key_override,
-    NULL // Null terminate the array of overrides!
-};
-
 // Combos
 const uint16_t PROGMEM auml_combo[] =   {LCTL_T(KC_R),  KC_M,           COMBO_END};
 const uint16_t PROGMEM ouml_combo[] =   {LALT_T(KC_S),  KC_O,           COMBO_END};
@@ -125,6 +117,11 @@ const uint16_t PROGMEM lds_combo[] =    {ALGR_T(KC_X),  KC_Z,           COMBO_EN
 const uint16_t PROGMEM tm1_combo[] =    {ESC_FUN,       SPC_NUM,        COMBO_END};
 const uint16_t PROGMEM tm2_combo[] =    {SPC_NUM,       TAB_SYM,        COMBO_END};
 
+// Miryoku's missing key
+const uint16_t PROGMEM del_combo[] =    {BSP_NAV,       ENT_MED,        COMBO_END};
+const uint16_t PROGMEM dot_combo[] =    {KC_0,          KC_MINUS,       COMBO_END};
+const uint16_t PROGMEM rprn_combo[] =   {KC_LPRN,       KC_UNDS,        COMBO_END};
+
 // Versions without mod-tap or layer-tap
 const uint16_t PROGMEM gauml_combo[] =   {KC_R,     KC_M,       COMBO_END};
 const uint16_t PROGMEM gouml_combo[] =   {KC_S,     KC_O,       COMBO_END};
@@ -154,6 +151,9 @@ const uint16_t PROGMEM glds_combo[] =    {KC_X,     KC_Z,       COMBO_END};
 const uint16_t PROGMEM gtm1_combo[] =    {ESC_FUN,  KC_SPC,     COMBO_END};
 const uint16_t PROGMEM gtm2_combo[] =    {KC_SPC,   TAB_NUM,    COMBO_END};
 
+// Miryoku's missing key
+const uint16_t PROGMEM gdel_combo[] =    {KC_BSPC,  KC_ENT,     COMBO_END};
+
 combo_t key_combos[] = {
     COMBO(auml_combo, ALGR(KC_Q)),
     COMBO(ouml_combo, ALGR(KC_P)),
@@ -182,6 +182,10 @@ combo_t key_combos[] = {
     COMBO(tm1_combo, KC_BTN1),
     COMBO(tm2_combo, KC_BTN2),
 
+    COMBO(del_combo, KC_DEL),
+    COMBO(dot_combo, KC_DOT),
+    COMBO(rprn_combo, KC_RPRN),
+
 
     COMBO(gauml_combo, ALGR(KC_Q)),
     COMBO(gouml_combo, ALGR(KC_P)),
@@ -206,6 +210,8 @@ combo_t key_combos[] = {
 
     COMBO(gtm1_combo, KC_BTN1),
     COMBO(gtm2_combo, KC_BTN2),
+
+    COMBO(gdel_combo, KC_DEL),
 };
 
 /** Base layer */
@@ -256,7 +262,7 @@ combo_t key_combos[] = {
 
 // Symbols.
 #define LAYOUT_LAYER_SYM                                                                      \
-    __________________RESET_L__________________, KC_LCBR, KC_AMPR, KC_ASTR, KC_RPRN, KC_RCBR, \
+    __________________RESET_L__________________, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, \
     ______________HOME_ROW_GACS_L______________, KC_PLUS,  KC_DLR, KC_PERC, KC_CIRC, KC_COLN, \
     ______________HOME_ROW_ALGR_L______________, KC_PIPE, KC_EXLM,   KC_AT, KC_HASH, KC_TILD, \
                          U_NA,    U_NA,    U_NA, KC_UNDS, KC_LPRN
@@ -375,8 +381,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_SNIPE] =   LAYOUT_wrapper(LAYOUT_LAYER_SNIPE),
 };
 // clang-format on
-
+uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    mod_state = get_mods();
+
     switch (keycode) {
         case BOWSNIP:
             if (record->event.pressed) {
@@ -386,37 +394,94 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(LAYER_SNIPE);
                 unregister_code(KC_E);
             }
-
             break;
+            
         case ACIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"a");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_A));
+                } else {
+                    tap_code(KC_A);
+                }
             }
             break;
         case ECIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"e");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_E));
+                } else {
+                    tap_code(KC_E);
+                }
             }
             break;
         case ICIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"i");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_I));
+                } else {
+                    tap_code(KC_I);
+                }
             }
             break;
         case OCIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"o");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_O));
+                } else {
+                    tap_code(KC_O);
+                }
             }
             break;
         case UCIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"u");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_U));
+                } else {
+                    tap_code(KC_U);
+                }
             }
             break;
     }
 
     return true;
 };
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case ACIRC ... UCIRC:
+        case ALGR(KC_A) ... ALGR(KC_Z):
+        case KC_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(default_layer_state)) {
