@@ -85,14 +85,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [CPS_SLP] = ACTION_TAP_DANCE_DOUBLE(KC_CAPS, KC_SLEP),
 };
 
-// Key Overrides
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, BSP_NAV, KC_DEL);
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &delete_key_override,
-    NULL // Null terminate the array of overrides!
-};
-
 // Combos
 const uint16_t PROGMEM auml_combo[] =   {LCTL_T(KC_R),  KC_M,           COMBO_END};
 const uint16_t PROGMEM ouml_combo[] =   {LALT_T(KC_S),  KC_O,           COMBO_END};
@@ -125,6 +117,11 @@ const uint16_t PROGMEM lds_combo[] =    {ALGR_T(KC_X),  KC_Z,           COMBO_EN
 const uint16_t PROGMEM tm1_combo[] =    {ESC_FUN,       SPC_NUM,        COMBO_END};
 const uint16_t PROGMEM tm2_combo[] =    {SPC_NUM,       TAB_SYM,        COMBO_END};
 
+// Miryoku's missing key
+const uint16_t PROGMEM del_combo[] =    {BSP_NAV,       ENT_MED,        COMBO_END};
+const uint16_t PROGMEM dot_combo[] =    {KC_0,          KC_MINUS,       COMBO_END};
+const uint16_t PROGMEM rprn_combo[] =   {KC_LPRN,       KC_UNDS,        COMBO_END};
+
 // Versions without mod-tap or layer-tap
 const uint16_t PROGMEM gauml_combo[] =   {KC_R,     KC_M,       COMBO_END};
 const uint16_t PROGMEM gouml_combo[] =   {KC_S,     KC_O,       COMBO_END};
@@ -154,6 +151,9 @@ const uint16_t PROGMEM glds_combo[] =    {KC_X,     KC_Z,       COMBO_END};
 const uint16_t PROGMEM gtm1_combo[] =    {ESC_FUN,  KC_SPC,     COMBO_END};
 const uint16_t PROGMEM gtm2_combo[] =    {KC_SPC,   TAB_NUM,    COMBO_END};
 
+// Miryoku's missing key
+const uint16_t PROGMEM gdel_combo[] =    {KC_BSPC,  KC_ENT,     COMBO_END};
+
 combo_t key_combos[] = {
     COMBO(auml_combo, ALGR(KC_Q)),
     COMBO(ouml_combo, ALGR(KC_P)),
@@ -182,6 +182,10 @@ combo_t key_combos[] = {
     COMBO(tm1_combo, KC_BTN1),
     COMBO(tm2_combo, KC_BTN2),
 
+    COMBO(del_combo, KC_DEL),
+    COMBO(dot_combo, KC_DOT),
+    COMBO(rprn_combo, KC_RPRN),
+
 
     COMBO(gauml_combo, ALGR(KC_Q)),
     COMBO(gouml_combo, ALGR(KC_P)),
@@ -206,6 +210,8 @@ combo_t key_combos[] = {
 
     COMBO(gtm1_combo, KC_BTN1),
     COMBO(gtm2_combo, KC_BTN2),
+
+    COMBO(gdel_combo, KC_DEL),
 };
 
 /** Base layer */
@@ -256,7 +262,7 @@ combo_t key_combos[] = {
 
 // Symbols.
 #define LAYOUT_LAYER_SYM                                                                      \
-    __________________RESET_L__________________, KC_LCBR, KC_AMPR, KC_ASTR, KC_RPRN, KC_RCBR, \
+    __________________RESET_L__________________, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, \
     ______________HOME_ROW_GACS_L______________, KC_PLUS,  KC_DLR, KC_PERC, KC_CIRC, KC_COLN, \
     ______________HOME_ROW_ALGR_L______________, KC_PIPE, KC_EXLM,   KC_AT, KC_HASH, KC_TILD, \
                          U_NA,    U_NA,    U_NA, KC_UNDS, KC_LPRN
