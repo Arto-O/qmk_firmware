@@ -375,8 +375,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_SNIPE] =   LAYOUT_wrapper(LAYOUT_LAYER_SNIPE),
 };
 // clang-format on
-
+uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    mod_state = get_mods();
+
     switch (keycode) {
         case BOWSNIP:
             if (record->event.pressed) {
@@ -386,37 +388,94 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(LAYER_SNIPE);
                 unregister_code(KC_E);
             }
-
             break;
+            
         case ACIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"a");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_A));
+                } else {
+                    tap_code(KC_A);
+                }
             }
             break;
         case ECIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"e");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_E));
+                } else {
+                    tap_code(KC_E);
+                }
             }
             break;
         case ICIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"i");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_I));
+                } else {
+                    tap_code(KC_I);
+                }
             }
             break;
         case OCIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"o");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_O));
+                } else {
+                    tap_code(KC_O);
+                }
             }
             break;
         case UCIRC:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("6")"u");
+                del_mods(MOD_MASK_SHIFT);
+                tap_code16(ALGR(KC_6));
+                set_mods(mod_state);
+                if (is_caps_word_on()) {
+                    tap_code16(S(KC_U));
+                } else {
+                    tap_code(KC_U);
+                }
             }
             break;
     }
 
     return true;
 };
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case ACIRC ... UCIRC:
+        case ALGR(KC_A) ... ALGR(KC_Z):
+        case KC_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(default_layer_state)) {
