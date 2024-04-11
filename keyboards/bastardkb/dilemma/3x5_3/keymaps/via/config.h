@@ -17,7 +17,7 @@
  */
 #pragma once
 
-#ifdef VIA_ENABLE
-/* VIA configuration. */
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 8
-#endif // VIA_ENABLE
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
+
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
