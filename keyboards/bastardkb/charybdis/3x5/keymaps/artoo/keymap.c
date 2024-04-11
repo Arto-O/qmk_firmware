@@ -154,6 +154,13 @@ const uint16_t PROGMEM gtm2_combo[] =    {KC_SPC,   TAB_NUM,    COMBO_END};
 // Miryoku's missing key
 const uint16_t PROGMEM gdel_combo[] =    {KC_BSPC,  KC_ENT,     COMBO_END};
 
+// Combos for MC layer's mod taps
+const uint16_t PROGMEM mlm1_combo[] =   {KC_C,          LCTL_T(KC_K),   COMBO_END};
+const uint16_t PROGMEM mlm2_combo[] =   {LCTL_T(KC_K),  LSFT_T(KC_X),   COMBO_END};
+const uint16_t PROGMEM mlm3_combo[] =   {KC_R,          LCTL_T(KC_K),   COMBO_END};
+const uint16_t PROGMEM mlm5_combo[] =   {KC_S,          LSFT_T(KC_X),   COMBO_END};
+const uint16_t PROGMEM mlds_combo[] =   {LSFT_T(KC_X),  KC_Z,           COMBO_END};
+
 combo_t key_combos[] = {
     COMBO(auml_combo, ALGR(KC_Q)),
     COMBO(ouml_combo, ALGR(KC_P)),
@@ -212,6 +219,13 @@ combo_t key_combos[] = {
     COMBO(gtm2_combo, KC_BTN2),
 
     COMBO(gdel_combo, KC_DEL),
+
+
+    COMBO(mlm1_combo, KC_BTN1),
+    COMBO(mlm2_combo, KC_BTN2),
+    COMBO(mlm3_combo, KC_BTN3),
+    COMBO(mlm5_combo, KC_BTN5),
+    COMBO(mlds_combo, DRGSCRL),
 };
 
 /** Base layer */
@@ -360,9 +374,9 @@ combo_t key_combos[] = {
             R05,        R06,        R07,        R08,        R09,  \
             L10,        L11,        L12,        L13,        L14,  \
             R15,        R16,    BOWSNIP,        R18,        R19,  \
-            L20,        L21,        L22,        L23,        L24,  \
-            R25,        R26,        R27,        R28,  MOUSE(R29), \
-                                    L32,     KC_SPC,     TAB_NUM, \
+            L20, LSFT_T(L21),LCTL_T(L22),        L23,       L24,  \
+            R25,        R26,        R27,        R28,        R29,  \
+                                    L32,     KC_SPC,    TAB_NUM,  \
       __VA_ARGS__
 #define MC_MOD(...) _MC_MOD(__VA_ARGS__)
 
